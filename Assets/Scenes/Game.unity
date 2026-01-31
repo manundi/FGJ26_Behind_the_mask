@@ -171,7 +171,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1044603270675833398}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4f50c63d8d3f2d42ae611b65a7cb9c7, type: 3}
   m_Name: 
@@ -331,7 +331,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1044603270675833398}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e0271509dcc448418ffa30e3dce0dae, type: 3}
   m_Name: 
@@ -1624,9 +1624,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4537078591238690229, guid: 91bc952d7f0372cb898506dfb484bd84, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6042905306550808045, guid: 91bc952d7f0372cb898506dfb484bd84, type: 3}
       propertyPath: near clip plane
       value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6876507030947727039, guid: 91bc952d7f0372cb898506dfb484bd84, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7868479403450235226, guid: 91bc952d7f0372cb898506dfb484bd84, type: 3}
       propertyPath: m_IsActive
