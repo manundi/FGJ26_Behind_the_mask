@@ -1,5 +1,6 @@
 using System;
 using Unity.Mathematics;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,6 +24,12 @@ public class CameraController : MonoBehaviour
     // Multiplier to make the sensitivity value feel more normalized (e.g. 1-10 range)
     private const float sensitivityMultiplier = 0.1f;
 
+    private bool monsterWasSight = false;
+    private float monsterSightTimer = 0.0f;
+    private AudioSource audioSource;
+    private List<AudioClip> monsterSounds = new List<AudioClip>();
+
+
     void Start()
     {
         // Lock and hide the cursor for FPS controls
@@ -38,6 +45,20 @@ public class CameraController : MonoBehaviour
         if (parentBody == null)
         {
             Debug.LogWarning("CameraController: No parent body found! Please assign one or child this camera to a player object.");
+        }
+
+        string[] monsterSoundNames = { "monster_mono" };
+        foreach (string soundName in monsterSoundNames)
+        {
+            AudioClip clip = Resources.Load<AudioClip>(soundName);
+            if (clip != null)
+            {
+                monsterSounds.Add(clip);
+            }
+            else
+            {
+                Debug.LogWarning("Could not find sound: " + soundName);
+            }
         }
     }
 
@@ -66,14 +87,42 @@ public class CameraController : MonoBehaviour
         {
             parentBody.Rotate(Vector3.up * mouseX);
         }
-      
+
+        bool monsterInSightNow;
         if (Math.Abs(parentBody.rotation.w) < 0.4f && Math.Abs(transform.rotation.eulerAngles.x) < 20f)
         {
+            monsterInSightNow = true;
             Game.instance.monster.monsterInSight = true;
         }
         else
         {
+            monsterInSightNow = false;
             Game.instance.monster.monsterInSight = false;
+        }
+
+        if (monsterInSightNow != monsterWasSight)
+        {
+            Debug.Log("Monster sight changed: " + monsterInSightNow + " (was " + monsterWasSight + ")");
+
+            monsterSightTimer += Time.deltaTime;
+            if (monsterSightTimer >= 0.1f)
+            {
+                Debug.Log("Monster timer: " + monsterSightTimer);
+
+                monsterWasSight = monsterInSightNow;
+                if (monsterInSightNow == false)
+                {
+                    Debug.Log("Monster sight now: " + monsterInSightNow);
+                    if (audioSource != null)
+                    {
+                        audioSource.PlayOneShot(monsterSounds[UnityEngine.Random.Range(0, monsterSounds.Count)]);
+                    }
+                }
+            }
+        }
+        else
+        {
+            monsterSightTimer = 0.0f;
         }
     }
 }

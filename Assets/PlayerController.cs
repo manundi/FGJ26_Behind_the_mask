@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,9 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
     private InputAction moveAction;
     private Vector2 lastInput;
+
+    private AudioSource audioSource;
+    private List<AudioClip> moveSounds = new List<AudioClip>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,6 +30,20 @@ public class PlayerController : MonoBehaviour
         else
         {
             Debug.LogError("PlayerInput component is missing on " + gameObject.name);
+        }
+
+        string[] moveSoundNames = { "move1_mono", "move2_mono", "move3_mono" };
+        foreach (string soundName in moveSoundNames)
+        {
+            AudioClip clip = Resources.Load<AudioClip>(soundName);
+            if (clip != null)
+            {
+                moveSounds.Add(clip);
+            }
+            else
+            {
+                Debug.LogWarning("Could not find sound: " + soundName);
+            }
         }
     }
 
@@ -52,6 +70,10 @@ public class PlayerController : MonoBehaviour
 
             else if (currentInput.y < -0.5f && lastInput.y >= -0.5f)
             {
+                if (audioSource != null)
+                {
+                    audioSource.PlayOneShot(moveSounds[UnityEngine.Random.Range(0, moveSounds.Count)]);
+                }
                 playerTargetPos.y += 1f;
 
                 Game.instance.levelCreator.UpdatePlayerPosition((int)Math.Floor(playerTargetPos.y));
