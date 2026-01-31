@@ -116,7 +116,13 @@ public class CameraController : MonoBehaviour
                     if (audioSource != null)
                     {
                         audioSource.PlayOneShot(monsterSounds[UnityEngine.Random.Range(0, monsterSounds.Count)]);
+                        audioSource.volume = 1.0f;
                     }
+                }
+                else
+                {
+                    audioSource.volume = Math.Max(0.0f, audioSource.volume - Time.deltaTime * 2.0f);
+                    Debug.Log("Monster sight now: " + monsterInSightNow);
                 }
             }
         }
