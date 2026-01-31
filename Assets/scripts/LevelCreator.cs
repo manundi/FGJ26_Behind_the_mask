@@ -19,6 +19,9 @@ public class LevelCreator : MonoBehaviour
     [Tooltip("Probability to move forward (0-1). Higher values make the path straighter.")]
     [Range(0f, 1f)]
     public float forwardBias = 0.6f;
+    [Tooltip("Probability to widen the path to 2 tiles at a given step.")]
+    [Range(0f, 1f)]
+    public float widePathChance = 0.2f;
     [Tooltip("Random seed. Change this to explore different paths.")]
     public int seed = 0;
 
@@ -110,6 +113,30 @@ public class LevelCreator : MonoBehaviour
             }
 
             AddTile(currentGrid, startZ, occupied);
+
+            // Widen the path occasionally
+            if (Random.value < widePathChance)
+            {
+                // Candidates: Forward, Left, Right
+                Vector2Int[] checkDirs = { new Vector2Int(0, 1), new Vector2Int(-1, 0), new Vector2Int(1, 0) };
+                List<Vector2Int> extras = new List<Vector2Int>();
+
+                foreach (var d in checkDirs)
+                {
+                    Vector2Int neighbor = currentGrid + d;
+                    // Start 'safety' check so we don't go way out of bounds, though IsValidMove checks Width
+                    if (neighbor.y <= stepsY && IsValidMove(neighbor, occupied, stepsY))
+                    {
+                        extras.Add(neighbor);
+                    }
+                }
+
+                if (extras.Count > 0)
+                {
+                    Vector2Int target = extras[Random.Range(0, extras.Count)];
+                    AddTile(target, startZ, occupied);
+                }
+            }
         }
 
         // Final connection to Middle Bot if needed
