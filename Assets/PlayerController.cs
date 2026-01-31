@@ -63,10 +63,10 @@ public class PlayerController : MonoBehaviour
         // {
         //     rb.useGravity = true;
         // }
-        // if (transform.position.y < -5f)
-        // {
-        //     Game.instance.RestartGame();
-        // }
+        if (transform.position.y < -5f)
+        {
+            Game.instance.RestartGame();
+        }
     }
 
 
