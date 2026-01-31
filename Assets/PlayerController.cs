@@ -58,15 +58,15 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.position = Vector3.Lerp(transform.position, new Vector3(playerTargetPos.x, transform.position.y, playerTargetPos.y), Time.deltaTime * 10f);
-        Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 10f);
-        if (!hit.transform.gameObject.CompareTag("Ground"))
-        {
-            rb.useGravity = true;
-        }
-        if (transform.position.y < -5f)
-        {
-            Game.instance.RestartGame();
-        }
+        // Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 10f);
+        // if (!hit.transform.gameObject.CompareTag("Ground"))
+        // {
+        //     rb.useGravity = true;
+        // }
+        // if (transform.position.y < -5f)
+        // {
+        //     Game.instance.RestartGame();
+        // }
     }
 
 

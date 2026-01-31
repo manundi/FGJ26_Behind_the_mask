@@ -3,6 +3,10 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
 
+    public CameraController cameraController;
+    public Monster monster;
+    public PlayerController playerController;
+    public LevelCreator levelCreator;
     static public Game instance;
     void Awake()
     {
