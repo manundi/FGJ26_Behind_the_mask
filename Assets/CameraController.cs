@@ -28,7 +28,9 @@ public class CameraController : MonoBehaviour
     private float monsterSightTimer = 0.0f;
     public AudioSource audioSource;
     public List<AudioClip> monsterSounds = new List<AudioClip>();
-
+          // How strict the check is (1 = exact, 0 = 90 degrees)
+    [Range(-1f, 1f)]
+    public float dotThreshold = 0.8f;
 
     void Start()
     {
@@ -77,11 +79,22 @@ public class CameraController : MonoBehaviour
         }
 
         bool monsterInSightNow;
-        if (Math.Abs(parentBody.rotation.w) < 0.4f && Math.Abs(transform.rotation.eulerAngles.x) < 20f)
+
+
+
+   
+        Vector3 facing = transform.forward;
+        Vector3 targetDirection = Vector3.back;
+
+        float dot = Vector3.Dot(facing.normalized, targetDirection.normalized);
+
+        if (dot > dotThreshold)
         {
-            monsterInSightNow = true;
+             monsterInSightNow = true;
             Game.instance.monster.monsterInSight = true;
+            Debug.Log("Facing Vector3.back");
         }
+       
         else
         {
             monsterInSightNow = false;
@@ -109,7 +122,7 @@ public class CameraController : MonoBehaviour
                 }
                 else
                 {
-                    audioSource.volume = Math.Max(0.0f, audioSource.volume - Time.deltaTime * 20.0f);
+                    audioSource.volume = Math.Max(0.0f, audioSource.volume - Time.deltaTime * 10.0f);
                     Debug.Log("Monster sight now: " + monsterInSightNow);
                 }
             }
