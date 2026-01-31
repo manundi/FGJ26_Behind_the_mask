@@ -176,7 +176,7 @@ public class LevelCreator : MonoBehaviour
     private void AddTile(Vector2Int gridPos, float startZ, HashSet<Vector2Int> occupied)
     {
         occupied.Add(gridPos);
-        Vector3 worldPos = new Vector3(gridPos.x * tileSize, 0f, startZ - gridPos.y * tileSize);
+        Vector3 worldPos = new Vector3(gridPos.x * tileSize, 0f, gridPos.y * tileSize);
         SpawnTile(worldPos, gridPos);
     }
 
