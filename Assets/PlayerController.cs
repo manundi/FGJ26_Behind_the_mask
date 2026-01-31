@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     Vector2 playerTargetPos;
+    Rigidbody rb;
     private InputAction moveAction;
     private Vector2 lastInput;
 
@@ -14,7 +15,7 @@ public class PlayerController : MonoBehaviour
     {
         // Initialize target position to current position to avoid snapping to (0,0)
         playerTargetPos = new Vector2(transform.position.x, transform.position.z);
-
+        rb = GetComponent<Rigidbody>();
         // Get the PlayerInput component and the "Move" action
         var playerInput = GetComponent<PlayerInput>();
         if (playerInput != null)
@@ -47,7 +48,7 @@ public class PlayerController : MonoBehaviour
                 playerTargetPos.x += 1f;
             }
 
-        
+
             else if (currentInput.y < -0.5f && lastInput.y >= -0.5f)
             {
                 playerTargetPos.y += 1f;
@@ -57,6 +58,15 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.position = Vector3.Lerp(transform.position, new Vector3(playerTargetPos.x, transform.position.y, playerTargetPos.y), Time.deltaTime * 10f);
+        Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 10f);
+        if (!hit.transform.gameObject.CompareTag("Ground"))
+        {
+            rb.useGravity = true;
+        }
+        if (transform.position.y < -5f)
+        {
+            Game.instance.RestartGame();
+        }
     }
 
 
