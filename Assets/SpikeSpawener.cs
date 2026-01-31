@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SpikeSpawener : MonoBehaviour
@@ -5,6 +6,8 @@ public class SpikeSpawener : MonoBehaviour
     int currrentRow = 0;
     int spikesOnRow = 6;
     public GameObject spikePrefab;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,6 +20,7 @@ public class SpikeSpawener : MonoBehaviour
         if(Game.instance.playerController.transform.position.z > currrentRow - 10)
         {
           SpawnSpikeRows(20);
+  
         }
     }
 
@@ -32,4 +36,5 @@ public class SpikeSpawener : MonoBehaviour
         currrentRow ++;
         }
     }
+
 }
