@@ -1,4 +1,5 @@
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -65,8 +66,8 @@ public class CameraController : MonoBehaviour
         {
             parentBody.Rotate(Vector3.up * mouseX);
         }
-
-        if (Math.Abs(parentBody.rotation.w) < 0.4f)
+      
+        if (Math.Abs(parentBody.rotation.w) < 0.4f && Math.Abs(transform.rotation.eulerAngles.x) < 20f)
         {
             Game.instance.monster.monsterInSight = true;
         }
