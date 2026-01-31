@@ -103,7 +103,11 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.name == "Monster")
         {
-           Game.instance.RestartGame();
+            if (audioSource != null)
+            {
+                audioSource.PlayOneShot(deathSounds[UnityEngine.Random.Range(0, deathSounds.Count)]);
+            }
+            Game.instance.RestartGame();
         }
     }
 
