@@ -1,4 +1,6 @@
+using Unity.VectorGraphics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
@@ -8,8 +10,10 @@ public class Game : MonoBehaviour
     public PlayerController playerController;
     public LevelCreator levelCreator;
     static public Game instance;
+
     void Awake()
     {
+            print("Game Awake");
         if (instance == null)
         {
             instance = this;
@@ -19,6 +23,19 @@ public class Game : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+      // called third
+  
+    void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode  )
+    {
+    
+
+        cameraController = FindFirstObjectByType<CameraController>();
+        monster = FindFirstObjectByType<Monster>();
+        playerController = FindFirstObjectByType<PlayerController>();
+        levelCreator = FindFirstObjectByType<LevelCreator>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -36,6 +53,7 @@ public class Game : MonoBehaviour
     public void RestartGame()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        Intro();
     }
 
     public void Intro()
@@ -47,7 +65,7 @@ public class Game : MonoBehaviour
 
     public void EnableControls()
     {
-        playerController.enabled = true;
-        cameraController.enabled = true;
+        Game.instance.playerController.enabled = true;
+        Game.instance.cameraController.enabled = true;
     }
 }
