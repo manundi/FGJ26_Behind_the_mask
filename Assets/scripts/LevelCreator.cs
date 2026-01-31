@@ -237,6 +237,11 @@ public class LevelCreator : MonoBehaviour
                         {
                             child.gameObject.SetActive(false);
                         }
+                        if (child.name == "block_straight")
+                        {
+                           tileObj.transform.rotation = (up && down) ? Quaternion.Euler(0, 0, 0) : Quaternion.Euler(0, 90, 0);
+                        }
+                      
                     }
                 }
                 else if ((up && right) || (right && down) || (down && left) || (left && up))
@@ -250,6 +255,17 @@ public class LevelCreator : MonoBehaviour
                         if (child.name == "block_straight")
                         {
                             child.gameObject.SetActive(false);
+                        }
+                        if (child.name == "block_corner")
+                        {
+                            if (up && right)
+                                tileObj.transform.rotation = Quaternion.Euler(0, 90, 0);
+                            else if (right && down)
+                                 tileObj.transform.rotation = Quaternion.Euler(0, 180, 0);
+                            else if (down && left)
+                                 tileObj.transform.rotation = Quaternion.Euler(0, 270, 0);
+                            else if (left && up)
+                                tileObj.transform.rotation = Quaternion.Euler(0, 0, 0);
                         }
                     }
                 }
