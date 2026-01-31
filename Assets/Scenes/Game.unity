@@ -1717,7 +1717,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   moveTimeStep: 6
   stepTimer: 0
-  speedNotInSight: 4
+  speedNotInSight: 3
   speedInSight: 1
   monsterInSightStep: 2
   monsterInSight: 1
@@ -2113,7 +2113,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3950626028734759047, guid: 11a0aa5b3d29c644dafef107057a2acb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 5.78
       objectReference: {fileID: 0}
     - target: {fileID: 3950626028734759047, guid: 11a0aa5b3d29c644dafef107057a2acb, type: 3}
       propertyPath: m_LocalPosition.z
