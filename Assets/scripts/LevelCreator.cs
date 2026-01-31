@@ -22,15 +22,19 @@ public class LevelCreator : MonoBehaviour
     [Tooltip("Random seed. Change this to explore different paths.")]
     public int seed = 0;
 
+    List<Vector2Int> placedPositions = new List<Vector2Int>();
+    List<GameObject> placedTiles = new List<GameObject>();
+    HashSet<Vector2Int> occupied = new HashSet<Vector2Int>();
+
     private void Start()
     {
-        GeneratePath();
+        UpdatePath(10);
     }
 
     [ContextMenu("Generate Path")]
-    public void GeneratePath()
+    public void UpdatePath(int maxYLength)
     {
-        DeleteChildren();
+        //DeleteChildren();
 
         if (tilePrefab == null)
         {
@@ -44,30 +48,42 @@ public class LevelCreator : MonoBehaviour
         // Coordinate system: X (lateral), Y (longitudinal/depth).
         // Y increases as we go "Down" (-Z in World).
 
-        HashSet<Vector2Int> occupied = new HashSet<Vector2Int>();
-
         int stepsY = Mathf.RoundToInt(areaHeight / tileSize);
         float startZ = areaHeight / 2f;
-
-        // Start at (0,0) -> World (0, 0, startZ)
-        Vector2Int currentGrid = Vector2Int.zero;
-
-        // Place Start
-        AddTile(currentGrid, startZ, occupied);
 
         int safety = 0;
         int maxSafety = 10000;
 
-        while (currentGrid.y < stepsY && safety < maxSafety)
+        int currentMaxY = -1;
+        for (int i = 0; i < placedPositions.Count; i++)
         {
+            currentMaxY = Mathf.Max(currentMaxY, placedPositions[i].y);
+        }
+
+        if (currentMaxY == -1)
+        {
+            Vector2Int currentGrid = Vector2Int.zero;
+            AddTile(currentGrid, startZ, occupied);
+            currentMaxY = 0;
+        }
+
+        while (currentMaxY < maxYLength && safety < maxSafety)
+        {
+            for (int i = 0; i < placedPositions.Count; i++)
+            {
+                currentMaxY = Mathf.Max(currentMaxY, placedPositions[i].y);
+            }
+
+            Vector2Int currentGrid = placedPositions[placedPositions.Count - 1];
+
             safety++;
 
             // Determine possible moves: Forward (0,1), Left (-1,0), Right (1,0)
             List<Vector2Int> candidates = new List<Vector2Int>();
 
-            Vector2Int forwardMove = currentGrid + new Vector2Int(0, 1);
-            Vector2Int leftMove = currentGrid + new Vector2Int(-1, 0);
-            Vector2Int rightMove = currentGrid + new Vector2Int(1, 0);
+            Vector2Int forwardMove = currentGrid + Vector2Int.up;
+            Vector2Int leftMove = currentGrid + Vector2Int.left;
+            Vector2Int rightMove = currentGrid + Vector2Int.right;
 
             // Check candidates
             bool forwardValid = IsValidMove(forwardMove, occupied, stepsY);
@@ -113,22 +129,22 @@ public class LevelCreator : MonoBehaviour
         }
 
         // Final connection to Middle Bot if needed
-        while (currentGrid.x != 0 && safety < maxSafety)
-        {
-            safety++;
-            Vector2Int stepDir = new Vector2Int(currentGrid.x > 0 ? -1 : 1, 0);
-            Vector2Int next = currentGrid + stepDir;
+        // while (currentGrid.x != 0 && safety < maxSafety)
+        // {
+        //     safety++;
+        //     Vector2Int stepDir = new Vector2Int(currentGrid.x > 0 ? -1 : 1, 0);
+        //     Vector2Int next = currentGrid + stepDir;
 
-            if (IsValidMove(next, occupied, stepsY))
-            {
-                currentGrid = next;
-                AddTile(currentGrid, startZ, occupied);
-            }
-            else
-            {
-                break;
-            }
-        }
+        //     if (IsValidMove(next, occupied, stepsY))
+        //     {
+        //         currentGrid = next;
+        //         AddTile(currentGrid, startZ, occupied);
+        //     }
+        //     else
+        //     {
+        //         break;
+        //     }
+        // }
     }
 
     private bool IsValidMove(Vector2Int pos, HashSet<Vector2Int> occupied, int maxY)
@@ -187,6 +203,9 @@ public class LevelCreator : MonoBehaviour
                 DestroyImmediate(child);
             }
         }
+
+        placedTiles.Clear();
+        placedPositions.Clear();
     }
 
     private void OnDrawGizmos()
