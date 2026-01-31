@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -52,6 +53,8 @@ public class PlayerController : MonoBehaviour
             else if (currentInput.y < -0.5f && lastInput.y >= -0.5f)
             {
                 playerTargetPos.y += 1f;
+
+                Game.instance.levelCreator.UpdatePlayerPosition((int)Math.Floor(playerTargetPos.y));
             }
 
             lastInput = currentInput;

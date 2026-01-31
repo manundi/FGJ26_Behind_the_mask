@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class LevelCreator : MonoBehaviour
 {
@@ -22,13 +23,15 @@ public class LevelCreator : MonoBehaviour
     [Tooltip("Random seed. Change this to explore different paths.")]
     public int seed = 0;
 
+    public int pathCreatedLength = 0;
+
     List<Vector2Int> placedPositions = new List<Vector2Int>();
     List<GameObject> placedTiles = new List<GameObject>();
     HashSet<Vector2Int> occupied = new HashSet<Vector2Int>();
 
     private void Start()
     {
-        UpdatePath(10);
+        UpdatePlayerPosition(0);
     }
 
     [ContextMenu("Generate Path")]
@@ -42,7 +45,7 @@ public class LevelCreator : MonoBehaviour
             return;
         }
 
-        if (seed != 0) Random.InitState(seed);
+        if (seed != 0) UnityEngine.Random.InitState(seed);
 
         // Grid-based logic to handle "touch exactly 2 tiles" rule strictly.
         // Coordinate system: X (lateral), Y (longitudinal/depth).
@@ -94,7 +97,7 @@ public class LevelCreator : MonoBehaviour
             bool moved = false;
 
             // Bias logic
-            if (forwardValid && Random.value < forwardBias)
+            if (forwardValid && UnityEngine.Random.value < forwardBias)
             {
                 currentGrid = forwardMove;
                 moved = true;
@@ -108,7 +111,7 @@ public class LevelCreator : MonoBehaviour
 
                 if (sideMoves.Count > 0)
                 {
-                    currentGrid = sideMoves[Random.Range(0, sideMoves.Count)];
+                    currentGrid = sideMoves[UnityEngine.Random.Range(0, sideMoves.Count)];
                     moved = true;
                 }
                 else if (forwardValid)
@@ -146,7 +149,18 @@ public class LevelCreator : MonoBehaviour
         //     }
         // }
 
+        pathCreatedLength = currentMaxY;
+
         UpdateTileVisuals();
+    }
+
+    public void UpdatePlayerPosition(int playerY)
+    {
+        int newtargetY = playerY + 10;
+        if (newtargetY > pathCreatedLength)
+        {
+            UpdatePath(newtargetY);
+        }
     }
 
     private bool IsValidMove(Vector2Int pos, HashSet<Vector2Int> occupied, int maxY)
@@ -210,20 +224,34 @@ public class LevelCreator : MonoBehaviour
                 int neighbourCount = (up ? 1 : 0) + (down ? 1 : 0) + (left ? 1 : 0) + (right ? 1 : 0);
 
                 Transform[] childrens = tileComp.GetComponentsInChildren<Transform>();
-                foreach (var child in childrens)
-                {
-                    // Debug.Log("Child name: " + child.name);
-                }
 
                 if (up && down || left && right)
                 {
                     // straight piece
                     // Debug.Log("Tile at " + gridPos + " is a straight piece.");
+
+                    foreach (var child in childrens)
+                    {
+                        // Debug.Log("Child name: " + child.name + ", " + child.);
+                        if (child.name == "block_corner")
+                        {
+                            child.gameObject.SetActive(false);
+                        }
+                    }
                 }
                 else if ((up && right) || (right && down) || (down && left) || (left && up))
                 {
                     // corner piece
                     // Debug.Log("Tile at " + gridPos + " is a corner piece.");
+
+                    foreach (var child in childrens)
+                    {
+                        // Debug.Log("Child name: " + child.name);
+                        if (child.name == "block_straight")
+                        {
+                            child.gameObject.SetActive(false);
+                        }
+                    }
                 }
                 else
                 {
