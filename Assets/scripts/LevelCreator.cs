@@ -145,6 +145,8 @@ public class LevelCreator : MonoBehaviour
         //         break;
         //     }
         // }
+
+        UpdateTileVisuals();
     }
 
     private bool IsValidMove(Vector2Int pos, HashSet<Vector2Int> occupied, int maxY)
@@ -210,24 +212,24 @@ public class LevelCreator : MonoBehaviour
                 Transform[] childrens = tileComp.GetComponentsInChildren<Transform>();
                 foreach (var child in childrens)
                 {
-                    Debug.Log("Child name: " + child.name);
+                    // Debug.Log("Child name: " + child.name);
                 }
 
-                // if (up && down)
-                // {
-                //     Debug.Log("Tile at " + gridPos + " is a corner piece.");
-                //     // corner piece
-                // }
-                // else if (neighbourCount == 2)
-                // {
-                //     // straight piece
-                //     Debug.Log("Tile at " + gridPos + " is a straight piece.");
-                // }
-                // else
-                // {
-                //     Debug.Log("Tile at " + gridPos + " is something else.");
-                //     // end piece
-                // }
+                if (up && down || left && right)
+                {
+                    // straight piece
+                    // Debug.Log("Tile at " + gridPos + " is a straight piece.");
+                }
+                else if ((up && right) || (right && down) || (down && left) || (left && up))
+                {
+                    // corner piece
+                    // Debug.Log("Tile at " + gridPos + " is a corner piece.");
+                }
+                else
+                {
+                    // end piece
+                    // Debug.Log("Tile at " + gridPos + " is something else." + up + ", " + down + ", " + left + ", " + right);
+                }
             }
         }
     }
