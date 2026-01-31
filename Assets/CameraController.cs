@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -63,6 +64,15 @@ public class CameraController : MonoBehaviour
         if (parentBody != null)
         {
             parentBody.Rotate(Vector3.up * mouseX);
+        }
+
+        if (Math.Abs(parentBody.rotation.w) < 0.4f)
+        {
+            Game.instance.monster.monsterInSight = true;
+        }
+        else
+        {
+            Game.instance.monster.monsterInSight = false;
         }
     }
 }
