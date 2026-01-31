@@ -40,21 +40,17 @@ public class PlayerController : MonoBehaviour
             // X Axis (A/D or Left/Right)
             if (currentInput.x > 0.5f && lastInput.x <= 0.5f)
             {
-                playerTargetPos.x += 1f;
+                playerTargetPos.x -= 1f;
             }
             else if (currentInput.x < -0.5f && lastInput.x >= -0.5f)
             {
-                playerTargetPos.x -= 1f;
+                playerTargetPos.x += 1f;
             }
 
-            // Y Axis (W/S or Up/Down) -> Maps to Z position
-            if (currentInput.y > 0.5f && lastInput.y <= 0.5f)
-            {
-                playerTargetPos.y += 1f;
-            }
+        
             else if (currentInput.y < -0.5f && lastInput.y >= -0.5f)
             {
-                playerTargetPos.y -= 1f;
+                playerTargetPos.y += 1f;
             }
 
             lastInput = currentInput;
