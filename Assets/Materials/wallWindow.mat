@@ -63,7 +63,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SphereInt: 0.25
-    - _SphereTile: 5.43
+    - _SphereTile: 1.08
     - _Spheres: 0.5
     - _SpheresSize: 0.5
     m_Colors:
