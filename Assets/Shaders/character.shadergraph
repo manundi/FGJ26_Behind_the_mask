@@ -2222,7 +2222,7 @@
     "m_Hidden": false,
     "m_PerRendererData": false,
     "m_customAttributes": [],
-    "m_Value": 0.029999999329447748,
+    "m_Value": 0.05999999865889549,
     "m_FloatType": 0,
     "m_LiteralFloatMode": false,
     "m_RangeValues": {
@@ -2282,7 +2282,7 @@
     "m_Hidden": false,
     "m_PerRendererData": false,
     "m_customAttributes": [],
-    "m_Value": 0.12999999523162843,
+    "m_Value": 1.8799999952316285,
     "m_FloatType": 0,
     "m_LiteralFloatMode": false,
     "m_RangeValues": {
@@ -5127,7 +5127,7 @@
     "m_Hidden": false,
     "m_PerRendererData": false,
     "m_customAttributes": [],
-    "m_Value": 0.25,
+    "m_Value": 0.7799999713897705,
     "m_FloatType": 0,
     "m_LiteralFloatMode": false,
     "m_RangeValues": {

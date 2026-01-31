@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mesh
+  m_Name: blockRim
   m_Shader: {fileID: -6465566751694194690, guid: f0a62b0132911d44bb1c84f2e61817f2, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -55,7 +55,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Float: 0.89
+    - _Float: -4.9
     - _Float_1: 3.65
     - _Float_2: 0.25
     - _Float_3: 12.7
@@ -63,11 +63,11 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SphereInt: 0.25
-    - _SphereTile: 0.5
+    - _SphereTile: 1.47
     - _Spheres: 0.5
     - _SpheresSize: 0.5
     m_Colors:
-    - _Ramp: {r: -0.77, g: 1.04, b: 0, a: 0}
+    - _Ramp: {r: -0.65, g: 1.04, b: 0, a: 0}
     - _Shadow: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
