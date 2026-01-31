@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
 
     public AudioSource audioSource;
     public List<AudioClip> moveSounds = new List<AudioClip>();
+    public List<AudioClip> dropSounds = new List<AudioClip>();
+    public List<AudioClip> deathSounds = new List<AudioClip>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,6 +40,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool moved = false;
         if (moveAction != null)
         {
             Vector2 currentInput = moveAction.ReadValue<Vector2>();
@@ -48,10 +51,12 @@ public class PlayerController : MonoBehaviour
             // X Axis (A/D or Left/Right)
             if (currentInput.x > 0.5f && lastInput.x <= 0.5f)
             {
+                moved = true;
                 playerTargetPos.x -= 1f;
             }
             else if (currentInput.x < -0.5f && lastInput.x >= -0.5f)
             {
+                moved = true;
                 playerTargetPos.x += 1f;
             }
 
@@ -62,12 +67,24 @@ public class PlayerController : MonoBehaviour
                 {
                     audioSource.PlayOneShot(moveSounds[UnityEngine.Random.Range(0, moveSounds.Count)]);
                 }
+                moved = true;
                 playerTargetPos.y += 1f;
 
                 Game.instance.levelCreator.UpdatePlayerPosition((int)Math.Floor(playerTargetPos.y));
             }
 
             lastInput = currentInput;
+        }
+
+        if (moved)
+        {
+            if (Game.instance.levelCreator.occupied.Contains(new Vector2Int((int)Math.Floor(playerTargetPos.x), (int)Math.Floor(playerTargetPos.y))))
+            {
+                if (audioSource != null)
+                {
+                    audioSource.PlayOneShot(dropSounds[UnityEngine.Random.Range(0, dropSounds.Count)]);
+                }
+            }
         }
 
         transform.position = Vector3.Lerp(transform.position, new Vector3(playerTargetPos.x, transform.position.y, playerTargetPos.y), Time.deltaTime * 10f);

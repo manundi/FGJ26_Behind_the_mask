@@ -27,7 +27,7 @@ public class LevelCreator : MonoBehaviour
 
     List<Vector2Int> placedPositions = new List<Vector2Int>();
     List<GameObject> placedTiles = new List<GameObject>();
-    HashSet<Vector2Int> occupied = new HashSet<Vector2Int>();
+    public HashSet<Vector2Int> occupied = new HashSet<Vector2Int>();
 
     private void Start()
     {
