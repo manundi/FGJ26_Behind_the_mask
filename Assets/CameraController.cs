@@ -26,8 +26,8 @@ public class CameraController : MonoBehaviour
 
     private bool monsterWasSight = false;
     private float monsterSightTimer = 0.0f;
-    private AudioSource audioSource;
-    private List<AudioClip> monsterSounds = new List<AudioClip>();
+    public AudioSource audioSource;
+    public List<AudioClip> monsterSounds = new List<AudioClip>();
 
 
     void Start()
@@ -47,19 +47,7 @@ public class CameraController : MonoBehaviour
             Debug.LogWarning("CameraController: No parent body found! Please assign one or child this camera to a player object.");
         }
 
-        string[] monsterSoundNames = { "monster_mono" };
-        foreach (string soundName in monsterSoundNames)
-        {
-            AudioClip clip = Resources.Load<AudioClip>(soundName);
-            if (clip != null)
-            {
-                monsterSounds.Add(clip);
-            }
-            else
-            {
-                Debug.LogWarning("Could not find sound: " + soundName);
-            }
-        }
+      
     }
 
     void Update()

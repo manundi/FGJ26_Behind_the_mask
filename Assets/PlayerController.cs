@@ -12,8 +12,8 @@ public class PlayerController : MonoBehaviour
     private InputAction moveAction;
     private Vector2 lastInput;
 
-    private AudioSource audioSource;
-    private List<AudioClip> moveSounds = new List<AudioClip>();
+    public AudioSource audioSource;
+    public List<AudioClip> moveSounds = new List<AudioClip>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -32,19 +32,7 @@ public class PlayerController : MonoBehaviour
             Debug.LogError("PlayerInput component is missing on " + gameObject.name);
         }
 
-        string[] moveSoundNames = { "move1_mono", "move2_mono", "move3_mono" };
-        foreach (string soundName in moveSoundNames)
-        {
-            AudioClip clip = Resources.Load<AudioClip>(soundName);
-            if (clip != null)
-            {
-                moveSounds.Add(clip);
-            }
-            else
-            {
-                Debug.LogWarning("Could not find sound: " + soundName);
-            }
-        }
+      
     }
 
     // Update is called once per frame
