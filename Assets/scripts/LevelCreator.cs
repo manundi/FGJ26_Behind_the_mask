@@ -177,13 +177,59 @@ public class LevelCreator : MonoBehaviour
     {
         occupied.Add(gridPos);
         Vector3 worldPos = new Vector3(gridPos.x * tileSize, 0f, startZ - gridPos.y * tileSize);
-        SpawnTile(worldPos);
+        SpawnTile(worldPos, gridPos);
     }
 
-    private void SpawnTile(Vector3 localPos)
+    private void SpawnTile(Vector3 localPos, Vector2Int gridPos)
     {
         GameObject tile = Instantiate(tilePrefab, transform);
         tile.transform.localPosition = localPos;
+
+        placedTiles.Add(tile);
+        placedPositions.Add(gridPos);
+    }
+
+    public void UpdateTileVisuals()
+    {
+        for (int i = 0; i < placedTiles.Count; i++)
+        {
+            GameObject tileObj = placedTiles[i];
+            Vector2Int gridPos = placedPositions[i];
+
+            GameObject tileComp = tileObj;//tileObj.GetComponentInChildren<GameObject>();
+            if (tileComp != null)
+            {
+                // Determine neighbors
+                bool up = placedPositions.Contains(gridPos + Vector2Int.up);
+                bool down = placedPositions.Contains(gridPos + Vector2Int.down);
+                bool left = placedPositions.Contains(gridPos + Vector2Int.left);
+                bool right = placedPositions.Contains(gridPos + Vector2Int.right);
+
+                int neighbourCount = (up ? 1 : 0) + (down ? 1 : 0) + (left ? 1 : 0) + (right ? 1 : 0);
+
+                Transform[] childrens = tileComp.GetComponentsInChildren<Transform>();
+                foreach (var child in childrens)
+                {
+                    Debug.Log("Child name: " + child.name);
+                }
+
+                // if (up && down)
+                // {
+                //     Debug.Log("Tile at " + gridPos + " is a corner piece.");
+                //     // corner piece
+                // }
+                // else if (neighbourCount == 2)
+                // {
+                //     // straight piece
+                //     Debug.Log("Tile at " + gridPos + " is a straight piece.");
+                // }
+                // else
+                // {
+                //     Debug.Log("Tile at " + gridPos + " is something else.");
+                //     // end piece
+                // }
+            }
+        }
     }
 
     [ContextMenu("Delete Previous Path")]
