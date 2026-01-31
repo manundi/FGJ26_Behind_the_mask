@@ -69,6 +69,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "Monster")
+        {
+           Game.instance.RestartGame();
+        }
+    }
+
 
 
     void Move(Vector2 direction)
