@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
         bool moved = false;
         if (moveAction != null)
         {
+            if( !Game.instance.monster.monsterInSight ) return;
             Vector2 currentInput = moveAction.ReadValue<Vector2>();
 
             // Handle discrete movement logic
@@ -95,7 +96,7 @@ public class PlayerController : MonoBehaviour
         // }
         if (transform.position.y < -5f)
         {
-            Game.instance.RestartGame();
+            Game.instance.InvokeRestart();
         }
     }
 
@@ -107,7 +108,8 @@ public class PlayerController : MonoBehaviour
             {
                 audioSource.PlayOneShot(deathSounds[UnityEngine.Random.Range(0, deathSounds.Count)]);
             }
-            Game.instance.RestartGame();
+
+            Game.instance.InvokeRestart();
         }
     }
 

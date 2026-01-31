@@ -50,9 +50,14 @@ public class Game : MonoBehaviour
 
     }
 
+    public void InvokeRestart()
+    {
+       Invoke("RestartGame", 3f);
+    }
+
     public void RestartGame()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+     UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
         Intro();
     }
 
