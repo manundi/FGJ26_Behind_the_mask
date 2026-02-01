@@ -7,6 +7,7 @@ using TMPro;
 
 public class CameraController : MonoBehaviour
 {
+
     public AudioSource breathAudioSource;
     [Header("Mouse Settings")]
     [Tooltip("Sensitivity of the mouse look.")]
@@ -166,6 +167,7 @@ public class CameraController : MonoBehaviour
         if (monsterInSightNow)
         {
             scaredWaiting = false;
+        
         }
 
         if (scaredWaiting)
