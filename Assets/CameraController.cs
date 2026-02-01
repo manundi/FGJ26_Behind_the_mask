@@ -123,7 +123,7 @@ public class CameraController : MonoBehaviour
                     if (audioSource != null)
                     {
                         audioSource.PlayOneShot(monsterSounds[UnityEngine.Random.Range(0, monsterSounds.Count)]);
-                        audioSource.volume = 0.6f;
+                        audioSource.volume = 0.5f;
                     }
                 }
                 else
@@ -137,7 +137,7 @@ public class CameraController : MonoBehaviour
             {
                 scaredWaiting = true;
                 scaredTimer = 0.0f;
-                randomScaredTimer = 0.2f + UnityEngine.Random.Range(0.0f, 0.3f);
+                randomScaredTimer = 0.7f + UnityEngine.Random.Range(0.0f, 0.3f);
             }
         }
         else
@@ -155,12 +155,12 @@ public class CameraController : MonoBehaviour
             scaredTimer += Time.deltaTime;
             if (scaredTimer >= randomScaredTimer)
             {
-                if (audioSource != null)
+                if (breathAudioSource != null)
                 {
-                    audioSource.PlayOneShot(scaredSounds[UnityEngine.Random.Range(0, scaredSounds.Count)]);
+                    breathAudioSource.PlayOneShot(scaredSounds[UnityEngine.Random.Range(0, scaredSounds.Count)]);
                 }
                 scaredTimer = 0.0f;
-                randomScaredTimer = 0.2f + UnityEngine.Random.Range(0.0f, 0.3f);
+                randomScaredTimer = 2.2f + UnityEngine.Random.Range(0.0f, 1.0f);
             }
         }
     }
