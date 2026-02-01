@@ -11,6 +11,8 @@ public class Game : MonoBehaviour
     public LevelCreator levelCreator;
     static public Game instance;
 
+    public Transform player;
+
     void Awake()
     {
             print("Game Awake");
@@ -30,12 +32,17 @@ public class Game : MonoBehaviour
   
     void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode  )
     {
-    
+        if (scene.name != "Game")
+        {
+            return;
+        }
+        player = GameObject.FindWithTag("Player").transform;
 
         cameraController = FindFirstObjectByType<CameraController>();
         monster = FindFirstObjectByType<Monster>();
-        playerController = FindFirstObjectByType<PlayerController>();
+        GameObject.FindWithTag("Player").TryGetComponent<PlayerController>(out playerController);
         levelCreator = FindFirstObjectByType<LevelCreator>();
+        
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -69,6 +76,10 @@ public class Game : MonoBehaviour
 
     public void EnableControls()
     {
+        if (Game.instance.playerController == null || Game.instance.cameraController == null)
+        {
+            return;
+        }
         Game.instance.playerController.enabled = true;
         Game.instance.cameraController.enabled = true;
     }

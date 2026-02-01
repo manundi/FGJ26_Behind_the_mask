@@ -17,7 +17,7 @@ public class SpikeSpawener : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Game.instance.playerController.transform.position.z > currrentRow - 10)
+        if(Game.instance.player.position.z > currrentRow - 10)
         {
           SpawnSpikeRows(20);
   

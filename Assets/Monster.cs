@@ -22,7 +22,7 @@ public class Monster : MonoBehaviour
     public List<AudioClip> giggleSounds = new List<AudioClip>();
 
     Vector3 targetPosition;
-    Animator animator;
+    public Animator animator;
     Vector3 lastPos;
     float currentVelocity = 0.0f;
 
@@ -34,7 +34,7 @@ public class Monster : MonoBehaviour
         targetPosition = transform.position;
 
         monsterInSight = true;
-        animator = GetComponent<Animator>();
+      
         audioSource = GetComponent<AudioSource>();
         PlayGiggle();
 

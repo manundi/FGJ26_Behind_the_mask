@@ -20,10 +20,17 @@ public static SceneChanger instance;
     public void Menu()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
-    public void Game()
+    static public void Game()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
     }
+
+
+
+
+
 }
