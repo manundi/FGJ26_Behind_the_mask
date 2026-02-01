@@ -106,7 +106,6 @@ public class CameraController : MonoBehaviour
         {
             monsterInSightNow = true;
             Game.instance.monster.monsterInSight = true;
-            Debug.Log("Facing Vector3.back");
         }
 
         else
@@ -167,7 +166,7 @@ public class CameraController : MonoBehaviour
         if (monsterInSightNow)
         {
             scaredWaiting = false;
-        
+
         }
 
         if (scaredWaiting)
