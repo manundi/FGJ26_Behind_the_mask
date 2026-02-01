@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Monster : MonoBehaviour
@@ -15,6 +16,10 @@ public class Monster : MonoBehaviour
 
     public bool monsterInSight = true;
     public float smoothTime = 0.1f;
+    AudioSource audioSource;
+    public AudioSource moveAdioSource;
+
+    public List<AudioClip> giggleSounds = new List<AudioClip>();
 
     Vector3 targetPosition;
     Animator animator;
@@ -30,7 +35,10 @@ public class Monster : MonoBehaviour
        
         monsterInSight = true;
         animator = GetComponent<Animator>();
-    
+        audioSource = GetComponent<AudioSource>();
+        PlayGiggle();
+
+       
     }
 
     // Update is called once per frame
@@ -63,22 +71,33 @@ public class Monster : MonoBehaviour
     void Update()
     {
         // when monster becomes to sight it should slowly stop not instantly
+        animator.SetFloat("speed", (transform.position - lastPos).magnitude / Time.deltaTime);
+        lastPos = transform.position;
+        //TODO erly return if no need to change states
 
 
        
         if (monsterInSight)
         {
+            moveAdioSource.volume = 0.5f;
             transform.position = Vector3.Lerp(transform.position,transform.position + Vector3.forward, Time.deltaTime * currentVelocity ); 
         }
         else
         {
+            moveAdioSource.volume = 1f;
             transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.forward, Time.deltaTime *speedNotInSight); 
             targetPosition = transform.position;
         }
-        animator.SetFloat("speed", (transform.position - lastPos).magnitude / Time.deltaTime);
-        lastPos = transform.position;
 
     }
 
-   
+   public void PlayGiggle()
+    {
+        if (audioSource != null && giggleSounds.Count > 0)
+        {
+            int index = Random.Range(0, giggleSounds.Count);
+            audioSource.PlayOneShot(giggleSounds[index]);
+        }
+        Invoke("PlayGiggle", Random.Range(5.0f, 15.0f));
+    }
 }

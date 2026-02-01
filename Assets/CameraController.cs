@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
+    public AudioSource breathAudioSource;
     [Header("Mouse Settings")]
     [Tooltip("Sensitivity of the mouse look.")]
     public float mouseSensitivity = 10f;
@@ -117,7 +118,7 @@ public class CameraController : MonoBehaviour
                     if (audioSource != null)
                     {
                         audioSource.PlayOneShot(monsterSounds[UnityEngine.Random.Range(0, monsterSounds.Count)]);
-                        audioSource.volume = 1.0f;
+                        audioSource.volume = 0.6f;
                     }
                 }
                 else
