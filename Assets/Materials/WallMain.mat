@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-1917635202591603783
+--- !u!114 &-2680666841678013611
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: chandelier
+  m_Name: WallMain
   m_Shader: {fileID: -6465566751694194690, guid: 486d81e430b46734eb58b5f702418254, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -57,20 +57,15 @@ Material:
     m_Floats:
     - _Fade: 0.89
     - _Float: 0.89
-    - _Float_1: 3.65
-    - _Float_2: 0.25
-    - _Float_3: 12.7
-    - _Float_4: 0.21
+    - _Float_1: 4.01
+    - _Float_4: 1.43
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _SphereInt: 0.25
-    - _SphereTile: 3.07
     - _Spheres: 0.5
-    - _SpheresSize: 0.5
-    - _Tile: 3.68
+    - _Tile: 1.43
     m_Colors:
-    - _Ramp: {r: -1.17, g: 1.74, b: 0, a: 0}
+    - _Ramp: {r: -1.2, g: 1, b: 0, a: 0}
     - _Shadow: {r: 1, g: 0, b: 0, a: 0}
-    - _SphereRamp: {r: 1.06, g: 0.05, b: 0, a: 0}
+    - _SphereRamp: {r: 0.98, g: 0.26, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

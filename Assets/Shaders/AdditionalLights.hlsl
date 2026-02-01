@@ -90,12 +90,19 @@ void AllAdditionalLights_float(float3 WorldPos, float3 WorldNormal, float2 Cutof
 
     for(int i = 0; i < lightCount; ++i)
     {
+        // Get light data including shadow information
         Light light = GetAdditionalLight(i, WorldPos);
 
-        float3 color = dot(light.direction, WorldNormal);
-        color = smoothstep(CutoffThresholds.x, CutoffThresholds.y, color);
-        color *= light.color;
-        color *= light.distanceAttenuation;
+        // Calculate diffuse lighting
+        float3 diffuse = dot(light.direction, WorldNormal);
+        diffuse = smoothstep(CutoffThresholds.x, CutoffThresholds.y, diffuse);
+
+        // Combine with color and distance attenuation (falloff)
+        float3 color = diffuse * light.color * light.distanceAttenuation;
+
+        // Multiply by shadow attenuation (0 in shadow, 1 in light)
+        // This handles point/spot light shadows specifically
+        color *= light.shadowAttenuation;
 
         LightColor += color;
     } 
@@ -104,23 +111,10 @@ void AllAdditionalLights_float(float3 WorldPos, float3 WorldNormal, float2 Cutof
 
 void AllAdditionalLights_half(half3 WorldPos, half3 WorldNormal, half2 CutoffThresholds, out half3 LightColor)
 {
-    LightColor = 0.0f;
-
-#ifndef SHADERGRAPH_PREVIEW
-    int lightCount = GetAdditionalLightsCount();
-
-    for(int i = 0; i < lightCount; ++i)
-    {
-        Light light = GetAdditionalLight(i, WorldPos);
-        
-        float3 color = dot(light.direction, WorldNormal);
-        color = smoothstep(CutoffThresholds.x, CutoffThresholds.y, color);
-        color *= light.color;
-        color *= light.distanceAttenuation;
-
-        LightColor += color;
-    } 
-#endif
+    // Simply call the float version for consistency
+    float3 outColor;
+    AllAdditionalLights_float((float3)WorldPos, (float3)WorldNormal, (float2)CutoffThresholds, outColor);
+    LightColor = (half3)outColor;
 }
 
 #endif // ADDITIONAL_LIGHT_INCLUDED
