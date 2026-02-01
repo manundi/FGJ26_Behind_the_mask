@@ -50,15 +50,14 @@ public class Game : MonoBehaviour
 
     }
 
-    public void InvokeRestart()
+    public void InvokeDie()
     {
-       Invoke("RestartGame", 3f);
+       Invoke("Die", 3f);
     }
 
-    public void RestartGame()
+    public void Die()
     {
-     UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
-        Intro();
+        SceneChanger.instance.Menu();
     }
 
     public void Intro()

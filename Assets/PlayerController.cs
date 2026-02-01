@@ -94,9 +94,9 @@ public class PlayerController : MonoBehaviour
         // {
         //     rb.useGravity = true;
         // }
-        if (transform.position.y < -5f)
+        if (transform.position.y < -1f)
         {
-            Game.instance.InvokeRestart();
+            Game.instance.InvokeDie();
         }
     }
 
@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
                 audioSource.PlayOneShot(deathSounds[UnityEngine.Random.Range(0, deathSounds.Count)]);
             }
 
-            Game.instance.InvokeRestart();
+            Game.instance.InvokeDie();
         }
     }
 
