@@ -1,12 +1,15 @@
 
 using System;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
+    public GameObject bloodEffectPrefab;
+    public Transform bloodSpawnPoint;
     Vector2 playerTargetPos;
     Rigidbody rb;
     private InputAction moveAction;
@@ -94,9 +97,11 @@ public class PlayerController : MonoBehaviour
         // {
         //     rb.useGravity = true;
         // }
-        if (transform.position.y < -1f)
+        if (transform.position.y < -4f )
         {
             Game.instance.InvokeDie();
+            Instantiate(bloodEffectPrefab, bloodSpawnPoint.position, quaternion.identity);
+            Game.instance.playerController.enabled = false;
         }
     }
 
