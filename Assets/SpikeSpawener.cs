@@ -4,7 +4,7 @@ using UnityEngine;
 public class SpikeSpawener : MonoBehaviour
 {
     int currrentRow = 0;
-    int spikesOnRow = 6;
+    int spikesOnRow = 9;
     public GameObject spikePrefab;
 
 
