@@ -62,7 +62,7 @@ public class CameraController : MonoBehaviour
             Debug.LogWarning("CameraController: No parent body found! Please assign one or child this camera to a player object.");
         }
 
-      
+
     }
 
     void Update()
@@ -95,7 +95,7 @@ public class CameraController : MonoBehaviour
 
 
 
-   
+
         Vector3 facing = transform.forward;
         Vector3 targetDirection = Vector3.back;
 
@@ -107,7 +107,7 @@ public class CameraController : MonoBehaviour
             Game.instance.monster.monsterInSight = true;
             Debug.Log("Facing Vector3.back");
         }
-       
+
         else
         {
             monsterInSightNow = false;

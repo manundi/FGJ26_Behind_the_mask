@@ -32,13 +32,13 @@ public class Monster : MonoBehaviour
     void Start()
     {
         targetPosition = transform.position;
-       
+
         monsterInSight = true;
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         PlayGiggle();
 
-       
+
     }
 
     // Update is called once per frame
@@ -46,27 +46,27 @@ public class Monster : MonoBehaviour
     {
         stepTimer += Time.fixedDeltaTime;
 
-        
-        if (stepTimer >= moveTimeStep )
+
+        if (stepTimer >= moveTimeStep)
         {
-            
+
             stepTimer = 0.0f;
-            currentVelocity =speedInSight;
-            
+            currentVelocity = speedInSight;
+
         }
 
-        if(!monsterInSight)
+        if (!monsterInSight)
         {
             currentVelocity = speedNotInSight;
         }
-        
-        if( currentVelocity > 0.0f)
+
+        if (currentVelocity > 0.0f)
         {
-            currentVelocity -= Time.fixedDeltaTime * 5.0f; 
+            currentVelocity -= Time.fixedDeltaTime * 5.0f;
         }
-        
-        
-}
+
+
+    }
 
     void Update()
     {
@@ -76,22 +76,22 @@ public class Monster : MonoBehaviour
         //TODO erly return if no need to change states
 
 
-       
+
         if (monsterInSight)
         {
             moveAdioSource.volume = 0.5f;
-            transform.position = Vector3.Lerp(transform.position,transform.position + Vector3.forward, Time.deltaTime * currentVelocity ); 
+            transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.forward, Time.deltaTime * currentVelocity);
         }
         else
         {
             moveAdioSource.volume = 1f;
-            transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.forward, Time.deltaTime *speedNotInSight); 
+            transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.forward, Time.deltaTime * speedNotInSight);
             targetPosition = transform.position;
         }
 
     }
 
-   public void PlayGiggle()
+    public void PlayGiggle()
     {
         if (audioSource != null && giggleSounds.Count > 0)
         {
