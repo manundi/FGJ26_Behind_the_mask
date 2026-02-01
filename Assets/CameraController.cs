@@ -3,6 +3,7 @@ using Unity.Mathematics;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class CameraController : MonoBehaviour
 {
@@ -33,6 +34,12 @@ public class CameraController : MonoBehaviour
     private float scaredTimer = 0.0f;
     private float randomScaredTimer = 0.0f;
     private bool scaredWaiting = false;
+
+
+    private float playerGuideTimer = 0.0f;
+    private float playerGuideTarget = 0.0f;
+    private float playerGuideTimerDelta = 0.0f;
+    TMP_Text playerGuideObject;
 
     // How strict the check is (1 = exact, 0 = 90 degrees)
     [Range(-1f, 1f)]
@@ -135,9 +142,20 @@ public class CameraController : MonoBehaviour
 
             if (monsterInSightNow == false)
             {
+                //breathing sounds
                 scaredWaiting = true;
                 scaredTimer = 0.0f;
                 randomScaredTimer = 0.7f + UnityEngine.Random.Range(0.0f, 0.3f);
+
+                playerGuideTimer = 0.0f;
+                playerGuideTarget = 0.0f;
+                playerGuideTimerDelta = 1.0f;
+            }
+            else
+            {
+                playerGuideTimer = 0.0f;
+                playerGuideTarget = 1.0f;
+                playerGuideTimerDelta = 5.0f;
             }
         }
         else
@@ -161,6 +179,18 @@ public class CameraController : MonoBehaviour
                 }
                 scaredTimer = 0.0f;
                 randomScaredTimer = 2.2f + UnityEngine.Random.Range(0.0f, 1.0f);
+            }
+        }
+
+        if (playerGuideTimer < 1.0f)
+        {
+            playerGuideTimer += Time.deltaTime * playerGuideTimerDelta;
+            float guideValue = Mathf.Lerp(0.0f, 1.0f, playerGuideTimer);
+
+            if (playerGuideObject)
+            {
+                float alpha = Mathf.Lerp(playerGuideObject.alpha, playerGuideTarget, guideValue);
+                playerGuideObject.alpha = alpha;
             }
         }
     }
