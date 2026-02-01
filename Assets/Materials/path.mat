@@ -56,13 +56,13 @@ Material:
     m_Ints: []
     m_Floats:
     - _Fade: 0.92
-    - _PlayerRadius: -2.18
+    - _PlayerRadius: -2.46
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Softness: -17.28
+    - _Softness: -18.19
     - _Tile: 0.72
     m_Colors:
-    - _PlayerPos: {r: 0, g: 0, b: -2.68, a: 0}
+    - _PlayerPos: {r: -26.1, g: 0, b: -2.68, a: 0}
     - _Ramp: {r: -0.92, g: 1, b: 0, a: 0}
     - _SphereRamp: {r: 1.15, g: -0.5, b: 0, a: 0}
   m_BuildTextureStacks: []
