@@ -29,7 +29,12 @@ public class CameraController : MonoBehaviour
     private float monsterSightTimer = 0.0f;
     public AudioSource audioSource;
     public List<AudioClip> monsterSounds = new List<AudioClip>();
-          // How strict the check is (1 = exact, 0 = 90 degrees)
+    public List<AudioClip> scaredSounds = new List<AudioClip>();
+    private float scaredTimer = 0.0f;
+    private float randomScaredTimer = 0.0f;
+    private bool scaredWaiting = false;
+
+    // How strict the check is (1 = exact, 0 = 90 degrees)
     [Range(-1f, 1f)]
     public float dotThreshold = 0.8f;
 
@@ -91,7 +96,7 @@ public class CameraController : MonoBehaviour
 
         if (dot > dotThreshold)
         {
-             monsterInSightNow = true;
+            monsterInSightNow = true;
             Game.instance.monster.monsterInSight = true;
             Debug.Log("Facing Vector3.back");
         }
@@ -127,10 +132,36 @@ public class CameraController : MonoBehaviour
                     Debug.Log("Monster sight now: " + monsterInSightNow);
                 }
             }
+
+            if (monsterInSightNow == false)
+            {
+                scaredWaiting = true;
+                scaredTimer = 0.0f;
+                randomScaredTimer = 0.2f + UnityEngine.Random.Range(0.0f, 0.3f);
+            }
         }
         else
         {
             monsterSightTimer = 0.0f;
+        }
+
+        if (monsterInSightNow)
+        {
+            scaredWaiting = false;
+        }
+
+        if (scaredWaiting)
+        {
+            scaredTimer += Time.deltaTime;
+            if (scaredTimer >= randomScaredTimer)
+            {
+                if (audioSource != null)
+                {
+                    audioSource.PlayOneShot(scaredSounds[UnityEngine.Random.Range(0, scaredSounds.Count)]);
+                }
+                scaredTimer = 0.0f;
+                randomScaredTimer = 0.2f + UnityEngine.Random.Range(0.0f, 0.3f);
+            }
         }
     }
 }
