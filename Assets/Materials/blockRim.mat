@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: blockRim
-  m_Shader: {fileID: -6465566751694194690, guid: f0a62b0132911d44bb1c84f2e61817f2, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 486d81e430b46734eb58b5f702418254, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -55,6 +55,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Fade: 0.89
     - _Float: -4.9
     - _Float_1: 3.65
     - _Float_2: 0.25
@@ -66,8 +67,10 @@ Material:
     - _SphereTile: 1.47
     - _Spheres: 0.5
     - _SpheresSize: 0.5
+    - _Tile: 1.97
     m_Colors:
-    - _Ramp: {r: -0.65, g: 1.04, b: 0, a: 0}
+    - _Ramp: {r: 0.8, g: 1.12, b: 0, a: 0}
     - _Shadow: {r: 1, g: 0, b: 0, a: 0}
+    - _SphereRamp: {r: 0.82, g: 0.01, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
